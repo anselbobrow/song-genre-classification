@@ -40,7 +40,7 @@ from classify_util import makefeat,window
 stemmer = PorterStemmer()
 
 # Read in the stop words
-stop_words = set([x.strip() for x in open("data/resources/stopwords.english", encoding="ISO-8859-1").readlines()])
+stop_words = set([x.strip() for x in open("stopwords.english", encoding="ISO-8859-1").readlines()])
 
 #############################################################################
 # Add your regular expressions here.
