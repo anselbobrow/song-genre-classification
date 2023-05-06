@@ -81,10 +81,14 @@ def extract_features (song, extended_features):
         
     if extended_features:
         # FIXME: Add bigram features (suggestion: use the window function in classify_utils.py)
-        bigrams = window(tokens)
+        bigrams = window(tokens, 2)
+        trigrams = window(tokens, 3)
 
         for bigram in bigrams:
             features.append(f"bigram="+str(bigram))
+
+        for trigram in trigrams:
+            features.append(f"trigram="+str(trigram))
 
         # FIXME: Add other features -- be creative!
         apostrophe_count = 0
@@ -134,9 +138,6 @@ def extract_features (song, extended_features):
 
         features.append("Xx_count="+str(Xx_count))
         features.append("XX_count="+str(XX_count))
-
-
-
 
         # add feature for capitalized username
         if tweet.username.isupper():
