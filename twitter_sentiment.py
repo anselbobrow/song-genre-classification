@@ -114,8 +114,6 @@ else:
     # classification. If doing a two-stage strategy, the neutral tweets
     # are removed since neutrals were labeled in the previous stage.
     polarity_training_tweets = deepcopy(training_tweets)
-    if do_subjectivity:
-        polarity_training_tweets = [x for x in polarity_training_tweets if x.label != "neutral"]
     
     # Get just the unlabeled tweets for polarity classification. Note that
     # polarity_eval_tweets is a different list from eval_tweets, but that
@@ -164,14 +162,14 @@ if options.detailed_output:
                 done_wrong.append((eval_tweet.label, gold_tweet))
     
     output_file.write("\n\n***************************************************\n")
-    output_file.write("**          CORRECTLY LABELED TWEETS             **\n") 
+    output_file.write("**          CORRECTLY LABELED SONGS             **\n") 
     output_file.write("***************************************************\n\n")
     
     output_file.write("\n".join([t.to_string() for t in done_right]))
     
     
     output_file.write("\n\n***************************************************\n")
-    output_file.write("**         INCORRECTLY LABELED TWEETS            **\n") 
+    output_file.write("**         INCORRECTLY LABELED SONGS            **\n") 
     output_file.write("***************************************************\n\n")
     output_file.write("\n".join([l+" "+t.to_string() for l,t in done_wrong]))
     
@@ -181,11 +179,3 @@ if options.detailed_output:
     output_file.write("\n".join([t.to_string() for t in abstentions]))
 
 output_file.write("\n")
-
-# Change the labels to subjective/neutral for getting subjectivity
-# results. This writes over the labels in eval_tweets and gold_tweets,
-# but that's okay because we're done with them now.
-convert_posneg_to_subjective(eval_tweets)
-convert_posneg_to_subjective(gold_tweets)
-(accuracy, label_results, _) = scorePredictions(eval_tweets, gold_tweets)
-writeResults("Subjectivity", accuracy, label_results, output_file)

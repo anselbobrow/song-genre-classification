@@ -99,8 +99,36 @@ def extract_features (song, extended_features):
         semicolon_count = 0
         colon_count = 0
         hyphen_count = 0
+        digit_count = 0
         Xx_count = 0
         XX_count = 0
+
+        line_lengths = []
+        unique_line_lengths = []
+
+        word_lengths = []
+
+        for line in song.lyrics.split("\n")
+
+            line_lengths.append(len(line.split()))
+
+            unique_words = []
+            w = line.split()
+            if w not in unique_words:
+                unique_words.append(w)
+            unique_line_lengths.append(len(unique_words))
+
+            for word in line:
+                if word[0].isupper():
+                    if word.isupper():
+                        XX_count += 1
+                    else:
+                        Xx_count += 1
+                word_lengths.append(len(word))
+
+        avg_line_length = sum(line_lengths) / len(line_lengths)
+        unique_avg_line_length = sum(unique_line_lengths) / len(unique_line_lengths)
+        avg_word_length = sum(word_lengths) / len(word_lengths)
 
         for token in tokens:
             if token == "'":
@@ -119,12 +147,9 @@ def extract_features (song, extended_features):
                 semicolon_count += 1
             if token == "-":
                 hyphen_count += 1
+            if token.isdigit():
+                digit_count += 1
 
-            if token[0].isupper():
-                if token.isupper():
-                    XX_count += 1
-                else:
-                    Xx_count += 1
 
         # add features for positive/negative words, positive and negative numbers, numbers of capitalized words
         features.append("apostrophe="+str(apostrophe_count))
@@ -136,12 +161,18 @@ def extract_features (song, extended_features):
         features.append("semicolon="+str(semicolon_count))
         features.append("hyphen="+str(hyphen_count))
 
+        features.append("digit="+str(digit_count))
+
+        features.append("average_line_length"+str(avg_line_length))
+        features.append("unique_avg_line_length"+str(unique_avg_line_length))
+        features.append("avg_word_length"+str(avg_word_length))
+
         features.append("Xx_count="+str(Xx_count))
         features.append("XX_count="+str(XX_count))
 
     return features
 
-
+## DO NOT NEED ANYTHING BELOW THIS LINE
 #############################################################################
 # Predict sentiment based on ratio of positive and negative terms in a tweet
 def majority_class_baseline (tweetset):
