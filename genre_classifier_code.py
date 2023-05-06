@@ -139,10 +139,6 @@ def extract_features (song, extended_features):
         features.append("Xx_count="+str(Xx_count))
         features.append("XX_count="+str(XX_count))
 
-        # add feature for capitalized username
-        if tweet.username.isupper():
-            features.append("username_form=XX")
-
     return features
 
 
