@@ -116,7 +116,7 @@ def get_feature_extractor_option_parser ():
                       help="output extended features")
     return parser
 
-def window(seq, n=2):
+def window(seq, n):
     "Returns a sliding window (of width n) over data from the iterable"
     "   s -> (s0,s1,...s[n-1]), (s1,s2,...,sn), ...                   "
     it = iter(seq)
