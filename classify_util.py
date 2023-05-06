@@ -70,7 +70,7 @@ def get_categorizer_option_parser ():
                       help="print status messages to stderr")
     return parser
 
-def get_spotify_option_parser ():
+def get_twitter_option_parser ():
     parser = OptionParser()
     parser.add_option("-t", "--train", dest="train",
                       help="learn from training events in FILE", metavar="FILE")
@@ -116,11 +116,11 @@ def get_feature_extractor_option_parser ():
                       help="output extended features")
     return parser
 
-def window(seq, n):
+def window(seq, n=2):
     "Returns a sliding window (of width n) over data from the iterable"
     "   s -> (s0,s1,...s[n-1]), (s1,s2,...,sn), ...                   "
     it = iter(seq)
-    result = list(islice(it, n))
+    result = tuple(islice(it, n))
     if len(result) == n:
         yield result    
     for elem in it:
