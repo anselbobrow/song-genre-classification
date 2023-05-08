@@ -1,5 +1,5 @@
 #!/bin/bash
-CLASSIFY_DIR=/Users/ansel/Documents/Yale/CLASSES/LING_227/hw2/classify/
+CLASSIFY_DIR=`pwd`
 
 JARS=`echo $CLASSIFY_DIR/lib/*.jar | tr ' ' ':'`
 
